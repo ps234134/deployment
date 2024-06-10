@@ -21,11 +21,15 @@ class ExampleTest extends TestCase
      * A basic test example.
      */
     public function test_the_application_returns_the_portfolio_view(): void
-    {
-        $response = $this->get('/');
+{
+    $response = $this->get('/');
 
-        $response->assertViewIs('portfolio');
+    if (env('CI')) {
+        file_put_contents('test_output.txt', $response->getContent());
     }
+
+    $response->assertViewIs('portfolio');
+}
 
 
 }
